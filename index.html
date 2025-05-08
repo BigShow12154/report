@@ -4,124 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>译脉中医智能检测与诊断报告</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #2A3F5D;
+            --secondary-color: #C19B76;
+            --accent-color: #5A8D7F;
+            --text-color: #2D231A;
+        }
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: '微软雅黑', sans-serif;
-            color: #333;
+            font-family: '微软雅黑', 'Helvetica Neue', sans-serif;
+            color: var(--text-color);
             line-height: 1.8;
         }
-
         body {
-            background: #f8f5f0;
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxwYXRoIGQ9Ik0wIDBMMTAwIDEwMEwxMDAgMFYwWiIgZmlsbD0iI2Y5ZjhmNCIvPjwvc3ZnPg==');
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 40px 50px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 30px rgba(205, 165, 124, 0.1);
-        }
-
-        .title {
-            text-align: center;
-            font-family: '华文行楷', cursive;
-            font-size: 36px;
-            color: #2d231a;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e9dcc6;
-            padding-bottom: 20px;
-        }
-
-        .section {
-            margin-bottom: 50px;
-        }
-
-        .section h2 {
-            font-family: '隶书', serif;
-            font-size: 28px;
-            color: #4a3d2e;
-            border-left: 5px solid #cda57c;
-            padding-left: 20px;
-            margin-bottom: 30px;
-        }
-
-        .sub-title {
-            font-size: 22px;
-            color: #666;
-            margin-bottom: 20px;
-            font-weight: normal;
-        }
-
-        .table-wrap {
-            overflow-x: auto;
-        }
-
-        .medical-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        .medical-table th, 
-        .medical-table td {
-            padding: 15px 20px;
-            border: 1px solid #f0e6d9;
-            text-align: left;
-        }
-
-        .medical-table th {
-            background: #fcf8f3;
-            font-weight: normal;
-            color: #4a3d2e;
-            white-space: nowrap;
-        }
-
-        .list-item {
-            margin-left: 30px;
-            list-style: none;
+            background: #F9F6F1;
+            min-height: 100vh;
             position: relative;
         }
-
-        .list-item:before {
-            content: "•";
-            color: #cda57c;
-            position: absolute;
-            left: -20px;
+        /* 顶部导航栏 */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1001;
         }
-
-        .important {
-            color: #cda57c;
-            font-weight: 600;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid #e9dcc6;
-            font-size: 14px;
-            color: #666;
+        .brand-logo {
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
         }
-
-        .nowrap {
-            white-space: nowrap;
+        .brand-text {
+            font-family: '华文行楷', cursive;
+            color: white;
+            font-size: 24px;
+            letter-spacing: 2px;
         }
-
-        .italic {
-            font-style: italic;
-            color: #666;
+        .auth-buttons {
+            margin-left: auto;
+            display: flex;
+            gap: 20px;
         }
-    </style>
-</head>
-<body>
-      <style>
-        /* 新增导航栏样式 */
+        .auth-button {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .auth-button:hover {
+            background: rgba(255,255,255,0.25);
+        }
+        /* 侧边导航优化 */
         .sidebar {
             position: fixed;
             left: 0;
@@ -178,39 +128,160 @@
         .nav-item a:hover:before {
             opacity: 1;
         }
-        /* 调整主容器边距 */
+        /* 主内容区优化 */
         .container {
-            margin-left: 250px;  /* 新增左边距 */
-            max-width: calc(1200px - 250px); /* 调整最大宽度 */
+            margin: 100px 30px 60px 290px;
+            max-width: 1200px;
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .title {
+            font-family: '华文行楷', cursive;
+            font-size: 36px;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 25px;
+        }
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+        .section {
+            margin-bottom: 50px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 25px;
+            position: relative;
+        }
+        .section::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent-color), rgba(90,141,127,0.3));
+        }
+        .section h2 {
+            font-family: '隶书', serif;
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            padding: 10px 0;
+            border-bottom: 1px solid #EFE6DC;
+        }
+        .medical-table {
+            border: 1px solid #EFE6DC;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        .medical-table th {
+            background: linear-gradient(to bottom, #FAF5ED, #F5ECE1);
+            font-weight: 600;
+            color: var(--primary-color);
+            padding: 18px 25px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        .medical-table td {
+            padding: 15px 25px;
+            border-bottom: 1px solid #EFE6DC;
+        }
+        .medical-table tr:hover td {
+            background: rgba(250,245,237,0.3);
+        }
+        .important {
+            color: var(--accent-color);
+            font-weight: 600;
+            position: relative;
+            padding-left: 20px;
+        }
+        .important::before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-size: 0.8em;
+            top: 2px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px 0 0;
+            color: #666;
+            border-top: 1px solid #EFE6DC;
+            font-size: 14px;
+        }
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                margin-left: 280px;
+                padding: 40px;
+            }
+        }
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 240px;
+            }
+            .container {
+                margin-left: 260px;
+            }
         }
         @media (max-width: 768px) {
             .sidebar {
-                width: 180px;
-                padding: 20px 10px;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
             .container {
-                margin-left: 200px;
-                max-width: calc(100% - 200px);
-                padding: 30px 20px;
+                margin: 80px 20px;
+            }
+            .sidebar.active {
+                transform: translateX(0);
             }
         }
     </style>
 </head>
 <body>
-    <!-- 新增导航栏HTML结构 -->
+    <!-- 顶部导航栏 -->
+    <nav class="top-nav">
+        <div class="brand">
+            <span class="brand-text">译脉智能中医</span>
+        </div>
+        <div class="auth-buttons">
+            <button class="auth-button"><i class="fas fa-sign-in-alt"></i>登录</button>
+            <button class="auth-button"><i class="fas fa-user-plus"></i>注册</button>
+        </div>
+    </nav>
+    <!-- 侧边导航栏 -->
     <nav class="sidebar">
-        <div class="nav-title">导航菜单</div>
+        <div class="nav-title">功能导航</div>
         <ul class="nav-list">
-            <li class="nav-item"><a href="javascript:void(0)">我的信息</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">我的收藏</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">我的报告</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">报告对比</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">帮助中心</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">联系客服</a></li>
-            <li class="nav-item"><a href="javascript:void(0)">系统信息</a></li>
+            <li class="nav-item"><a href="#"><i class="fas fa-user-circle"></i>我的信息</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-star"></i>我的收藏</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-file-medical"></i>我的报告</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-balance-scale"></i>报告对比</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-question-circle"></i>帮助中心</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-headset"></i>联系客服</a></li>
+
+            <li class="nav-item"><a href="#"><i class="fas fa-info-circle"></i>系统信息</a></li>
         </ul>
     </nav>
-
     <div class="container">
         <h1 class="title">译脉中医智能检测与诊断报告</h1>
 
