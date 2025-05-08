@@ -120,6 +120,97 @@
     </style>
 </head>
 <body>
+      <style>
+        /* 新增导航栏样式 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 220px;
+            height: 100%;
+            background: #fff;
+            box-shadow: 2px 0 15px rgba(205, 165, 124, 0.1);
+            padding: 30px 15px;
+            z-index: 1000;
+        }
+        .nav-title {
+            font-family: '隶书', serif;
+            font-size: 22px;
+            color: #4a3d2e;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e9dcc6;
+        }
+        .nav-list {
+            list-style: none;
+        }
+        .nav-item {
+            margin: 12px 0;
+            transition: all 0.3s ease;
+        }
+        .nav-item a {
+            display: block;
+            padding: 12px 20px;
+            text-decoration: none;
+            color: #666;
+            border-radius: 8px;
+            background: #fcf8f3;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-item a:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #cda57c;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .nav-item a:hover {
+            background: #f8f5f0;
+            color: #4a3d2e;
+            transform: translateX(5px);
+        }
+        .nav-item a:hover:before {
+            opacity: 1;
+        }
+        /* 调整主容器边距 */
+        .container {
+            margin-left: 250px;  /* 新增左边距 */
+            max-width: calc(1200px - 250px); /* 调整最大宽度 */
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 180px;
+                padding: 20px 10px;
+            }
+            .container {
+                margin-left: 200px;
+                max-width: calc(100% - 200px);
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 新增导航栏HTML结构 -->
+    <nav class="sidebar">
+        <div class="nav-title">导航菜单</div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="javascript:void(0)">我的信息</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">我的收藏</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">我的报告</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">报告对比</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">帮助中心</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">联系客服</a></li>
+            <li class="nav-item"><a href="javascript:void(0)">系统信息</a></li>
+        </ul>
+    </nav>
+
     <div class="container">
         <h1 class="title">译脉中医智能检测与诊断报告</h1>
 
